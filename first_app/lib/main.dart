@@ -281,7 +281,8 @@ class ForthPage extends StatelessWidget {
       'K',
       'L',
       'M',
-      'N'
+      'N',
+      'o',
     ];
     final List<int> colorCodes = <int>[600, 500, 100];
     return Scaffold(
