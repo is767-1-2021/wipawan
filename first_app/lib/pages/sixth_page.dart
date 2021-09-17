@@ -89,9 +89,13 @@ class _MyCustomFormState extends State<MyCustomForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+
+                var response = 'Good Job = $_firstName $_lastName $_age';
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Good Job = $_firstName $_lastName $_age'),
+                  content: Text(response),
                 ));
+
+                Navigator.pop(context, response);
               }
             },
             child: Text('Validate'),
