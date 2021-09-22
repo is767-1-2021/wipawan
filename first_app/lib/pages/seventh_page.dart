@@ -30,24 +30,19 @@ class MoveCat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Center(
-              child: Hero(
-                tag: 'Cat',
-                child: Image.asset(
-                  'assets/cat2.png',
-                  width: 200,
-                ),
-              ),
+      body: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Center(
+          child: Hero(
+            tag: 'Cat',
+            child: Image.asset(
+              'assets/cat2.png',
+              width: 200,
             ),
           ),
-        ],
+        ),
       ),
     );
   }
