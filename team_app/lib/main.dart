@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:team_app/models/add_model.dart';
-
-import 'pages/View_user_page.dart';
-import 'pages/add_user_page.dart';
-import 'pages/appbartest.dart';
+import '/pages/form_add.dart';
+import '/pages/list_view.dart';
+import '/provider/user_provider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AddUserModel(),
+          create: (context) => UserProvider(),
         ),
       ],
       child: MyApp(),
@@ -20,19 +18,21 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        accentColor: Colors.blueAccent,
+        textTheme: TextTheme(
+          bodyText2: TextStyle(color: Colors.blueGrey),
+        ),
       ),
       initialRoute: '/1',
       routes: <String, WidgetBuilder>{
-        '/1': (context) => ViewUserPage(),
+        '/1': (context) => ViewUser(),
         '/2': (context) => AddUserPage(),
-        '/3': (context) => appbartest(),
       },
     );
   }
@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
-
   final String title;
 
   @override
@@ -48,40 +47,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('First Page'), actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward)),
-        IconButton(onPressed: () {}, icon: Icon(Icons.architecture)),
-      ]),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: 200.0,
+                margin:
+                    EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20.0),
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Colors.amber.withOpacity(0.25),
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+              ),
+              Text(
+                'You have pushed the button this many times:',
+              ),
+            ]),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
