@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:test_app/models/User.dart';
+import '/models/User.dart';
 
 class UserProvider with ChangeNotifier {
   List<User> users = [
@@ -35,7 +35,7 @@ class UserProvider with ChangeNotifier {
   }
 
   void addUser(User statement) {
-    users.add(statement);
+    users.insert(0, statement);
 
     //users.insert(0, statement); เพิ่มด้านบน
     //users.add(statement); เพิ่มด้านล่าง

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/models/User.dart';
-import 'package:test_app/provider/user_provider.dart';
+import '/providers/user_provider.dart';
+import '/models/User.dart';
 
 class AddUserPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
@@ -17,7 +17,14 @@ class AddUserPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('AddUser'),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add_a_photo))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.list_sharp)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.person_add))
+        ],
       ),
       body: Form(
         key: formKey,
@@ -25,9 +32,9 @@ class AddUserPage extends StatelessWidget {
           children: [
             TextFormField(
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Username',
-              ),
+                  border: UnderlineInputBorder(),
+                  labelText: 'Username',
+                  icon: Icon(Icons.assignment)),
               controller: usernameController,
               validator: (username) {
                 if (username == null || username.isEmpty) {
@@ -39,9 +46,9 @@ class AddUserPage extends StatelessWidget {
             ),
             TextFormField(
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Name',
-              ),
+                  border: UnderlineInputBorder(),
+                  labelText: 'Name',
+                  icon: Icon(Icons.face)),
               controller: nameController,
               validator: (name) {
                 if (name == null || name.isEmpty) {
@@ -53,9 +60,9 @@ class AddUserPage extends StatelessWidget {
             ),
             TextFormField(
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Position',
-              ),
+                  border: UnderlineInputBorder(),
+                  labelText: 'Position',
+                  icon: Icon(Icons.location_city_sharp)),
               controller: positionController,
               validator: (position) {
                 if (position == null || position.isEmpty) {
@@ -67,9 +74,9 @@ class AddUserPage extends StatelessWidget {
             ),
             TextFormField(
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Password',
-              ),
+                  border: UnderlineInputBorder(),
+                  labelText: 'Password',
+                  icon: Icon(Icons.vpn_key)),
               controller: passwordController,
               validator: (password) {
                 if (password == null || password.isEmpty) {
@@ -85,6 +92,8 @@ class AddUserPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
+                      _showDialog(context);
+
                       var username = usernameController.text;
                       var name = nameController.text;
                       var position = positionController.text;
@@ -109,23 +118,24 @@ class AddUserPage extends StatelessWidget {
                           Provider.of<UserProvider>(context, listen: false);
 
                       provider.addUser(statement);
-
-                      Navigator.pop(context);
                     }
                     ;
                   },
-                  child: Text('Confirm'),
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                  child: Text('Add'),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
                   child: Text('Cancel'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    formKey.currentState!.reset();
                   },
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   child: Text('Clear'),
                 ),
               ],
@@ -135,4 +145,23 @@ class AddUserPage extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Well done'),
+        content: Text('You add user already'),
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'))
+        ],
+      );
+    },
+  );
 }

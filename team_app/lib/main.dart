@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/pages/form_add.dart';
-import '/pages/list_view.dart';
-import '/provider/user_provider.dart';
+
+import 'pages/form_add.dart';
+import 'pages/list_view.dart';
+import 'providers/user_provider.dart';
 
 void main() {
   runApp(
