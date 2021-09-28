@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         accentColor: Colors.blueAccent,
         textTheme: TextTheme(
-          bodyText2: TextStyle(color: Colors.blueGrey),
+          bodyText2: TextStyle(color: Colors.black),
         ),
       ),
       initialRoute: '/1',

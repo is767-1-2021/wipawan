@@ -97,7 +97,7 @@ class UserDetail extends StatelessWidget {
               Text('Username: ${user.username}'),
               Text('Name: ${user.name}'),
               Text('Position: ${user.position}'),
-              Text('Passeord: ${user.password}'),
+              Text('Password: ${user.password}'),
             ],
           ),
         ],
