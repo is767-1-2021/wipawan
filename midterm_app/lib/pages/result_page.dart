@@ -34,22 +34,6 @@ class _Result_PageState extends State<Result_Page> {
               Container(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            'ชื่อ-นามสกุล : นายวินัย นาดี',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ]),
-              )),
-              Container(
-                  child: Padding(
-                padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
 
                 // Consumer<FirstFormModel>(
                 // builder: (context, form, child) {

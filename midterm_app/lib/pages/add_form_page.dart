@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -39,8 +40,8 @@ class AddFormPage extends StatelessWidget {
                   icon: Icon(Icons.email_sharp)),
               controller: usernameController,
               validator: (username) {
-                if (username!.contains('@')) {
-                  return 'กรุณากรอกอีเมล';
+                if ((username == null || username.isEmpty)) {
+                  return 'กรุณากรอกชื่อ-นามสกุล';
                 }
                 return null;
               },

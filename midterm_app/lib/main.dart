@@ -171,6 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             hintText: 'you@domain.com',
                             icon: Icon(Icons.email_sharp)),
                         keyboardType: TextInputType.emailAddress,
+                        autofillHints: [AutofillHints.email],
                         controller: usernameController,
                       ),
                       TextFormField(

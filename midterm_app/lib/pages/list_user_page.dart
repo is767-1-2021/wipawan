@@ -25,7 +25,7 @@ class _ViewUserState extends State<ListUser> {
             onPressed: () {
               Navigator.pushNamed(context, '/2');
             },
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.add_sharp),
           ),
           IconButton(
             onPressed: () {
