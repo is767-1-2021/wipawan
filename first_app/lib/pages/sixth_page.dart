@@ -102,7 +102,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
               }
             },
             child: Text('Validate'),
-          )
+          ),
         ],
       ),
     );

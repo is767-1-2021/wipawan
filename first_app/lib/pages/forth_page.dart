@@ -20,6 +20,24 @@ class ForthPage extends StatelessWidget {
       'N',
       'O',
     ];
+
+    final List<String> ppp = <String>[
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+      'N',
+      'O',
+    ];
     final List<int> colorCodes = <int>[600, 500, 100];
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +50,7 @@ class ForthPage extends StatelessWidget {
           return ProductTile(
             item: ProductItem(
               name: 'Product ${entries[index]}',
-              price: '25 USD',
+              price: 'Price ${ppp[index]}',
               colorShade: colorCodes[index % 3],
             ),
           );
