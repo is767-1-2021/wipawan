@@ -2,6 +2,7 @@ import 'package:first_app/Models/first_form_model.dart';
 import 'package:first_app/controller/todo.dart';
 import 'package:first_app/pages/todo_page.dart';
 import 'package:first_app/services/services.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,24 +16,25 @@ import 'pages/forth_page.dart';
 import 'pages/fifth_page.dart';
 import 'pages/sixth_page.dart';
 
-void main() {
-  var service = HttpServices();
-  var controller = TodoController(service);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
-  runApp(TodoApp(controller: controller));
+  var services = FirebaseServices(); //HttpServices();
+  var controller = TodoController(services);
 
-  // runApp(
-  //   MultiProvider(
-  //     providers: [
-  //       ChangeNotifierProvider(
-  //         create: (context) => FirstFormModel(),
-  //       ),
-  //     ],
-  //     child: TodoApp(
-  //       controller: controller,
-  //     ),
-  //   ),
-  // );
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FirstFormModel(),
+        ),
+      ],
+      child: TodoApp(
+        controller: controller,
+      ),
+    ),
+  );
 }
 
 class TodoApp extends StatelessWidget {

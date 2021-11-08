@@ -24,7 +24,7 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   void _getTodos() async {
-    var newTodos = await widget.controller.fectTodos();
+    var newTodos = await widget.controller.fecthTodos();
 
     setState(() {
       todos = newTodos;
