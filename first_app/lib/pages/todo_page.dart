@@ -31,6 +31,10 @@ class _TodoPageState extends State<TodoPage> {
     });
   }
 
+  void _updateTodos(int _id, bool _completed) async {
+    await widget.controller.updateTodo(_id, _completed);
+  }
+
   Widget get body => isLoading
       ? CircularProgressIndicator()
       : ListView.builder(
@@ -42,7 +46,12 @@ class _TodoPageState extends State<TodoPage> {
 
             return CheckboxListTile(
               value: todos[index].completed,
-              onChanged: null,
+              onChanged: (bool? value) {
+                setState(() {
+                  todos[index].completed = value!;
+                  _updateTodos(todos[index].id, value);
+                });
+              },
               title: Text(todos[index].title),
             );
           },
