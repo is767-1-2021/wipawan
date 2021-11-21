@@ -1,77 +1,104 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:icovid/constants/color_constant.dart';
+import 'package:icovid/controllers/booking_controller.dart';
+import 'package:icovid/models/booking_model.dart';
+import 'package:icovid/pages/login_page.dart';
+import 'package:icovid/services/booking_service.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/form_add.dart';
-import 'pages/list_view.dart';
-import 'providers/user_provider.dart';
+import 'constants/font_sonstant.dart';
+import 'models/booking_list_model.dart';
+import 'models/hospital_model.dart';
+import 'models/patient_form_model.dart';
+import 'models/patient_form_model_hospitel.dart';
+import 'models/profile_model.dart';
+import 'models/user_provider.dart';
+import 'pages/booking_step1_page.dart';
+import 'pages/bottom_nav_page.dart';
+import 'pages/hospital_home_page.dart';
+import 'pages/list_user_page.dart';
+import 'pages/patient_list_page.dart';
+import 'pages/qr_scan_page.dart';
+import 'pages/signup_page.dart';
+import 'pages/ubooking_list_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // var services = FirebaseServices();
+  // var controller = BookingController(services);
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (context) => BookingModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProfileModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BookingListModel(),
+        ),
+        ChangeNotifierProvider(
+          //ของกิ๊ฟ
           create: (context) => UserProvider(),
         ),
+        ChangeNotifierProvider(
+          //ของโบนัส
+          create: (context) => HospitalFormModel(),
+        ),
+        ChangeNotifierProvider(
+          //ของแตง
+          create: (context) => PatientFormModel(),
+        ),
+        ChangeNotifierProvider(
+          //ของแตง
+          create: (context) => PatientFormModelHospitel(),
+        ),
       ],
-      child: MyApp(),
+      child: BookingApp(),
     ),
   );
+}
+
+class BookingApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: BottomNavScreen(),
+      routes: <String, WidgetBuilder>{
+        '/1': (context) => SignUpScreen(),
+        '/2': (context) => LogInScreen(),
+        '/3': (context) => BookingStep1Screen(),
+        '/4': (context) => HospitalHomeScreen(),
+        '/5': (context) => PatientListPage(),
+        '/6': (context) => ListUser(),
+      },
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'i-Covid',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.blue,
-        accentColor: Colors.blueAccent,
-        textTheme: TextTheme(
-          bodyText2: TextStyle(color: Colors.black),
-        ),
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: fontRegular,
       ),
-      initialRoute: '/1',
-      routes: <String, WidgetBuilder>{
-        '/1': (context) => ViewUser(),
-        '/2': (context) => AddUserPage(),
-      },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                height: 200.0,
-                margin:
-                    EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20.0),
-                padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.25),
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-              ),
-              Text(
-                'You have pushed the button this many times:',
-              ),
-            ]),
+      home: AnimatedSplashScreen(
+        splash: Image.asset('assets/images/launcher_icon.png'),
+        duration: 2500,
+        splashTransition: SplashTransition.fadeTransition,
+        backgroundColor: iWhiteColor,
+        nextScreen: LogInScreen(),
       ),
     );
   }
